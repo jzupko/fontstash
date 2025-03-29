@@ -262,7 +262,10 @@ static void* fons__tmpalloc(size_t size, void* up);
 static void fons__tmpfree(void* ptr, void* up);
 #define STBTT_malloc(x,u)    fons__tmpalloc(x,u)
 #define STBTT_free(x,u)      fons__tmpfree(x,u)
-#include "stb_truetype.h"
+#ifndef FONS_STB_TRUETYPE
+#define FONS_STB_TRUETYPE "stb_truetype.h"
+#endif
+#include FONS_STB_TRUETYPE
 
 struct FONSttFontImpl {
 	stbtt_fontinfo font;
@@ -887,6 +890,7 @@ error:
 	return FONS_INVALID;
 }
 
+#if FONS_STDIO
 static FILE* fons__fopen(const char* filename, const char* mode)
 {
 #ifdef _WIN32
@@ -942,6 +946,7 @@ error:
 	if (fp) fclose(fp);
 	return FONS_INVALID;
 }
+#endif
 
 int fonsAddFontMem(FONScontext* stash, const char* name, unsigned char* data, int dataSize, int freeData)
 {
