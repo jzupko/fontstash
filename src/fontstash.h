@@ -95,7 +95,7 @@ typedef struct FONStextIter FONStextIter;
 typedef struct FONScontext FONScontext;
 
 // Contructor and destructor.
-FONS_DEF FONScontext* fonsCreateInternal(FONSparams* params);
+FONS_DEF FONScontext* fonsCreateInternal(FONSparams const* params);
 FONS_DEF void fonsDeleteInternal(FONScontext* s);
 
 FONS_DEF void fonsSetErrorCallback(FONScontext* s, void (*callback)(void* uptr, int error, int val), void* uptr);
@@ -719,7 +719,7 @@ static void fons__addWhiteRect(FONScontext* stash, int w, int h)
 	stash->dirtyRect[3] = fons__maxi(stash->dirtyRect[3], gy+h);
 }
 
-FONScontext* fonsCreateInternal(FONSparams* params)
+FONScontext* fonsCreateInternal(FONSparams const* params)
 {
 	FONScontext* stash = NULL;
 
